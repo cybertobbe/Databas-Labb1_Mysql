@@ -58,6 +58,12 @@ VALUES ('Joyride', 4,4),                -- Roxette
        ('Piano Concerto No.4+5', 1, 1), -- Beethoven
        ('Dretox', 5, 3);                -- Dr Dre
 
+INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
+VALUES ('Impromptus D899 & D935', 1, 1),
+       ('Piano Duets', 1, 1),
+       ('Somewhere in Time', 3, 2);
+
+
 SELECT * FROM artist;
 SELECT * FROM genre;
 SELECT * FROM album;
