@@ -63,3 +63,5 @@ JOIN artist ON album.artistAlbumId = artist.artistId
 WHERE artist.artistName = 'Dr Dre';
 
 
+
+
