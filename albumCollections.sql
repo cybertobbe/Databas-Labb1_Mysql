@@ -49,12 +49,20 @@ VALUES ('Piano Concertos Nos 1-5', 1,1), -- Beethoven
        ('Chronic', 5, 3), -- Dr Dre
        ('Brave new world', 3, 2); -- Iron Maiden
 
+-- Add more albums
+INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
+VALUES ('Joyride', 4,4),                -- Roxette
+       ('Dreams', 6, 2),                -- Van Halen
+       ('Run to the hills', 3, 2),      -- Iron Maiden
+       ('Compton', 5, 3),               -- Dr Dre
+       ('Piano Concerto No.4+5', 1, 1), -- Beethoven
+       ('Dretox', 5, 3);                -- Dr Dre
 
 SELECT * FROM artist;
 SELECT * FROM genre;
 SELECT * FROM album;
 
-SELECT albumTitle FROM album WHERE albumGenreId = 3;
+SELECT albumTitle FROM album WHERE albumGenreId = 2;
 
 -- Join
 SELECT album.albumId, album.albumTitle, artist.artistName
