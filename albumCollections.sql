@@ -21,3 +21,15 @@ CREATE TABLE album(
     FOREIGN KEY (albumGenreId) REFERENCES genre(genreId),
     PRIMARY KEY (albumId)
 );
+
+INSERT INTO artist(artistName)
+VALUES ('Ludwig van Beethoven'),
+       ('Franz Schubert'),
+       ('Iron Maiden'),
+       ('Roxette'),
+       ('Dr Dre'),
+       ('Van Halen');
+
+SELECT * FROM artist;
+
+
