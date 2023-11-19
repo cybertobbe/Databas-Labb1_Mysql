@@ -32,4 +32,25 @@ VALUES ('Ludwig van Beethoven'),
 
 SELECT * FROM artist;
 
+INSERT INTO genre(genreName)
+VALUES ('Classical'),
+       ('Rock'),
+       ('Hiphop'),
+       ('Pop');
+
+SELECT * FROM genre;
+
+
+INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
+VALUES ('Piano Concertos Nos 1-5', 1,1), -- Beethoven
+       ('Leichenfantasie', 2, 1), -- Schubert
+       ('OU812',6, 2),  -- Van Halen
+       ('Look Sharp', 4, 4),  -- Roxette
+       ('Chronic', 5, 3), -- Dr Dre
+       ('Brave new world', 3, 2); -- Iron Maiden
+
+
+SELECT * FROM artist;
+SELECT * FROM genre;
+SELECT * FROM album;
 
