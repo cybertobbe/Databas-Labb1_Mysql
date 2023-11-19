@@ -56,6 +56,7 @@ SELECT * FROM album;
 
 SELECT albumTitle FROM album WHERE albumGenreId = 3;
 
+-- Join
 SELECT album.albumId, album.albumTitle, artist.artistName
 FROM album
 JOIN artist ON album.artistAlbumId = artist.artistId
