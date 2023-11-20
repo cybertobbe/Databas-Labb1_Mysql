@@ -30,15 +30,12 @@ VALUES ('Ludwig van Beethoven'),
        ('Dr Dre'),
        ('Van Halen');
 
-SELECT * FROM artist;
 
 INSERT INTO genre(genreName)
 VALUES ('Classical'),
        ('Rock'),
        ('Hiphop'),
        ('Pop');
-
-SELECT * FROM genre;
 
 
 INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
@@ -63,6 +60,14 @@ VALUES ('Impromptus D899 & D935', 1, 1),
        ('Piano Duets', 1, 1),
        ('Somewhere in Time', 3, 2);
 
+-- Update album genre
+UPDATE album
+SET albumGenreId = 2
+WHERE albumTitle = 'Joyride';
+
+-- Delete 1 album
+DELETE FROM album
+WHERE albumTitle = 'Somewhere in Time';
 
 SELECT * FROM artist;
 SELECT * FROM genre;
@@ -70,12 +75,25 @@ SELECT * FROM album;
 
 SELECT albumTitle FROM album WHERE albumGenreId = 2;
 
--- Join
-SELECT album.albumId, album.albumTitle, artist.artistName
+-- Inner Join
+-- Hämtar alla album titlar och artistnamn i genre hiphop
+SELECT genre.genreName, album.albumTitle, artist.artistName
 FROM album
-JOIN artist ON album.artistAlbumId = artist.artistId
-WHERE artist.artistName = 'Dr Dre';
+INNER JOIN genre ON album.albumGenreId = genre.genreId
+INNER JOIN artist ON album.artistAlbumId = artist.artistId
+WHERE genre.genreName = 'Hiphop';
+
+-- Räkna antalet artister
+SELECT COUNT(artist.artistName) AS numberOfArtists FROM artist;
 
 
+-- Vy
+CREATE VIEW ArtistsAndAlbums AS
+SELECT artist.artistName, album.albumTitle
+FROM artist
+LEFT JOIN album ON artist.artistId = album.artistAlbumId;
 
+-- Visa Vy
+SELECT * FROM ArtistsAndAlbums
+         ORDER BY artistName;
 
