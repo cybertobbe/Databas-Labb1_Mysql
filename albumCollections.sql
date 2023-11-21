@@ -87,13 +87,29 @@ WHERE genre.genreName = 'Hiphop';
 SELECT COUNT(artist.artistName) AS numberOfArtists FROM artist;
 
 
--- Vy
+-- Skapa vy som visar alla artister tillsammans med albumName
 CREATE VIEW ArtistsAndAlbums AS
 SELECT artist.artistName, album.albumTitle
 FROM artist
 LEFT JOIN album ON artist.artistId = album.artistAlbumId;
 
--- Visa Vy
+-- Visa Vy sorterad i bokstavsordning på artistName
 SELECT * FROM ArtistsAndAlbums
          ORDER BY artistName;
 
+-- Lägg till kolumn för pris i album.
+ALTER TABLE album
+ADD price INT;
+// Kolla att det kolumn för pris blivit tillagd.
+SELECT * FROM album;
+
+-- Transaction uppdatera album kolumn pris med priser
+
+
+-- Visa referens integritet, 2 rader
+-- Försök ta bort en skiva som är kopplad, försök att lägga till skiva till något icke kopplat.
+DELETE FROM genre WHERE genreID = '2';
+
+
+
+DROP DATABASE albumCollection;
