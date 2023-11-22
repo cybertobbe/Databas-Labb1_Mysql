@@ -37,16 +37,16 @@ VALUES ('Classical'),
        ('Hiphop'),
        ('Pop');
 
-
+-- Update Add more albums
 INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
 VALUES ('Piano Concertos Nos 1-5', 1,1), -- Beethoven
        ('Leichenfantasie', 2, 1), -- Schubert
        ('OU812',6, 2),  -- Van Halen
-       ('Look Sharp', 4, 4),  -- Roxette
-       ('Chronic', 5, 3), -- Dr Dre
-       ('Brave new world', 3, 2); -- Iron Maiden
+       ('Look Sharp', 4, 4),        -- Roxette
+       ('Chronic', 5, 3),           -- Dr Dre
+       ('Brave new world', 3, 2);   -- Iron Maiden
 
--- Add more albums
+-- Update Add more albums
 INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
 VALUES ('Joyride', 4,4),                -- Roxette
        ('Dreams', 6, 2),                -- Van Halen
@@ -55,6 +55,7 @@ VALUES ('Joyride', 4,4),                -- Roxette
        ('Piano Concerto No.4+5', 1, 1), -- Beethoven
        ('Dretox', 5, 3);                -- Dr Dre
 
+-- Update add more albums
 INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
 VALUES ('Impromptus D899 & D935', 1, 1),
        ('Piano Duets', 1, 1),
@@ -77,14 +78,13 @@ SELECT * FROM artist;
 SELECT * FROM genre;
 SELECT * FROM album;
 
-SELECT albumTitle FROM album WHERE albumGenreId = 2;
 
 -- Inner Join
 -- Hämtar alla album titlar och artistnamn i genre hiphop
 SELECT genre.genreName, album.albumTitle, artist.artistName
-FROM album
-INNER JOIN genre ON album.albumGenreId = genre.genreId
-INNER JOIN artist ON album.artistAlbumId = artist.artistId
+FROM artist
+INNER JOIN album ON artist.artistId = album.artistAlbumId
+INNER JOIN genre ON album.albumGenreId = genre.genreID
 WHERE genre.genreName = 'Hiphop';
 
 -- Räkna antalet artister
@@ -101,19 +101,41 @@ LEFT JOIN album ON artist.artistId = album.artistAlbumId;
 SELECT * FROM ArtistsAndAlbums
          ORDER BY artistName;
 
--- Lägg till kolumn för pris i album.
+-- Lägg till kolumn för pris i album inför transaction
 ALTER TABLE album
-ADD price INT;
+ADD price INT AFTER albumTitle;
 -- Kolla att det kolumn för pris blivit tillagd.
 SELECT * FROM album;
 
+
 -- Transaction uppdatera album kolumn pris med priser
+-- Disable auto-commit
+SET AUTOCOMMIT = 0;
 
+-- Starta transaktion och uppdatera 3 st album till 89 kr.
+START TRANSACTION;
+UPDATE album
+SET album.price=89
+WHERE albumTitle IN('Compton', 'Dreams', 'Look Sharp');
+-- Uppdatera album Piano Duets till 99 kr
+UPDATE album
+SET album.price=99
+WHERE albumTitle = ('Piano Duets');
 
--- Visa referens integritet, 2 rader
--- Försök ta bort en skiva som är kopplad, försök att lägga till skiva till något icke kopplat.
+-- Ignorera uppdatering
+ROLLBACK;
+-- Spara uppdatering permanent
+COMMIT;
+
+-- Referens integritet
+-- Försök radera en genre som är kopplad till album
 DELETE FROM genre WHERE genreID = '2';
+-- Försök radera en tabell med kopplingar
+DROP TABLE artist;
 
-
+-- Radera alla i rätt ordning
+DROP TABLE album;
+DROP TABLE genre;
+DROP TABLE artist;
 
 DROP DATABASE albumCollection;
