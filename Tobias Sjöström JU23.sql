@@ -1,3 +1,5 @@
+-- Detta är en databas för en skivsamling
+
 CREATE DATABASE albumCollection;
 
 CREATE TABLE artist(
@@ -39,14 +41,14 @@ VALUES ('Classical'),
 
 -- Update Add more albums
 INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
-VALUES ('Piano Concertos Nos 1-5', 1,1), -- Beethoven
-       ('Leichenfantasie', 2, 1), -- Schubert
-       ('OU812',6, 2),  -- Van Halen
-       ('Look Sharp', 4, 4),        -- Roxette
-       ('Chronic', 5, 3),           -- Dr Dre
-       ('Brave new world', 3, 2);   -- Iron Maiden
+VALUES ('Piano Concertos Nos 1-5', 1,1),    -- Beethoven
+       ('Leichenfantasie', 2, 1),           -- Schubert
+       ('OU812',6, 2),                      -- Van Halen
+       ('Look Sharp', 4, 4),                -- Roxette
+       ('Chronic', 5, 3),                   -- Dr Dre
+       ('Brave new world', 3, 2);           -- Iron Maiden
 
--- Update Add more albums
+-- Update lägger till fler album
 INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
 VALUES ('Joyride', 4,4),                -- Roxette
        ('Dreams', 6, 2),                -- Van Halen
@@ -55,17 +57,18 @@ VALUES ('Joyride', 4,4),                -- Roxette
        ('Piano Concerto No.4+5', 1, 1), -- Beethoven
        ('Dretox', 5, 3);                -- Dr Dre
 
--- Update add more albums
+-- Update lägger till fler album
 INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
-VALUES ('Impromptus D899 & D935', 1, 1),
-       ('Piano Duets', 1, 1),
-       ('Somewhere in Time', 3, 2);
+VALUES ('Impromptus D899 & D935', 1, 1),    -- Beethoven
+       ('Piano Duets', 1, 1),               -- Beethoven
+       ('Somewhere in Time', 3, 2);         -- Iron Maiden
 
 SELECT * FROM artist;
 SELECT * FROM album;
 SELECT * FROM genre;
 
 -- Update album genre
+-- Ändra genre för album Joyride från pop till rock
 UPDATE album
 SET albumGenreId = 2
 WHERE albumTitle = 'Joyride';
@@ -80,7 +83,7 @@ SELECT * FROM album;
 
 
 -- Inner Join
--- Hämtar alla album titlar och artistnamn i genre hiphop
+-- Hämtar alla albumtitlar och artistnamn i genre hiphop
 SELECT genre.genreName, album.albumTitle, artist.artistName
 FROM artist
 INNER JOIN album ON artist.artistId = album.artistAlbumId
@@ -104,11 +107,11 @@ SELECT * FROM ArtistsAndAlbums
 -- Lägg till kolumn för pris i album inför transaction
 ALTER TABLE album
 ADD price INT AFTER albumTitle;
--- Kolla att det kolumn för pris blivit tillagd.
+-- Kolla att kolumn för pris blivit tillagd.
 SELECT * FROM album;
 
 
--- Transaction uppdatera album kolumn pris med priser
+-- Transaction uppdatera albumkolumn pris med priser
 -- Disable auto-commit
 SET AUTOCOMMIT = 0;
 
@@ -117,6 +120,7 @@ START TRANSACTION;
 UPDATE album
 SET album.price=89
 WHERE albumTitle IN('Compton', 'Dreams', 'Look Sharp');
+
 -- Uppdatera album Piano Duets till 99 kr
 UPDATE album
 SET album.price=99
@@ -133,7 +137,7 @@ DELETE FROM genre WHERE genreID = '2';
 -- Försök radera en tabell med kopplingar
 DROP TABLE artist;
 
--- Radera alla i rätt ordning
+-- Radera alla tabeller i rätt ordning
 DROP TABLE album;
 DROP TABLE genre;
 DROP TABLE artist;
