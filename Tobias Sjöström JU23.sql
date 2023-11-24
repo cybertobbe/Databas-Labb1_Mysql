@@ -1,7 +1,9 @@
--- Detta är en databas för en skivsamling
+-- Detta är en databas för en skivsamling, indelad i artist, genre och album
 
+-- Skapa databas
 CREATE DATABASE albumCollection;
 
+-- Skapa 3 tabeller
 CREATE TABLE artist(
     artistId INT NOT NULL AUTO_INCREMENT,
     artistName VARCHAR(50),
@@ -24,6 +26,8 @@ CREATE TABLE album(
     PRIMARY KEY (albumId)
 );
 
+
+-- Lägg till artister
 INSERT INTO artist(artistName)
 VALUES ('Ludwig van Beethoven'),
        ('Franz Schubert'),
@@ -32,14 +36,14 @@ VALUES ('Ludwig van Beethoven'),
        ('Dr Dre'),
        ('Van Halen');
 
-
+-- Lägg till genres
 INSERT INTO genre(genreName)
 VALUES ('Classical'),
        ('Rock'),
        ('Hiphop'),
        ('Pop');
 
--- Update Add more albums
+-- Lägg till album
 INSERT INTO album(albumTitle, artistAlbumId, albumGenreId)
 VALUES ('Piano Concertos Nos 1-5', 1,1),    -- Beethoven
        ('Leichenfantasie', 2, 1),           -- Schubert
@@ -63,6 +67,7 @@ VALUES ('Impromptus D899 & D935', 1, 1),    -- Beethoven
        ('Piano Duets', 1, 1),               -- Beethoven
        ('Somewhere in Time', 3, 2);         -- Iron Maiden
 
+-- Kolla tabellerna
 SELECT * FROM artist;
 SELECT * FROM album;
 SELECT * FROM genre;
@@ -76,10 +81,6 @@ WHERE albumTitle = 'Joyride';
 -- Delete 1 album
 DELETE FROM album
 WHERE albumTitle = 'Somewhere in Time';
-
-SELECT * FROM artist;
-SELECT * FROM genre;
-SELECT * FROM album;
 
 
 -- Inner Join
@@ -104,12 +105,12 @@ LEFT JOIN album ON artist.artistId = album.artistAlbumId;
 SELECT * FROM ArtistsAndAlbums
          ORDER BY artistName;
 
+
 -- Lägg till kolumn för pris i album inför transaction
 ALTER TABLE album
 ADD price INT AFTER albumTitle;
 -- Kolla att kolumn för pris blivit tillagd.
 SELECT * FROM album;
-
 
 -- Transaction uppdatera albumkolumn pris med priser
 -- Disable auto-commit
@@ -132,6 +133,7 @@ ROLLBACK;
 COMMIT;
 
 -- Referens integritet
+
 -- Försök radera en genre som är kopplad till album
 DELETE FROM genre WHERE genreID = '2';
 -- Försök radera en tabell med kopplingar
@@ -142,4 +144,5 @@ DROP TABLE album;
 DROP TABLE genre;
 DROP TABLE artist;
 
+-- Radera databas
 DROP DATABASE albumCollection;
