@@ -14,7 +14,7 @@ textfil eller SQL-fil).
 • ER-diagram eller motsvarande.
 • Namnge alla filer med klass och ditt namn
 
-Krav för G
+
 • Du ska planera databasen med t ex ER-diagram.
 • Du ska skapa tabellerna med SQL.
 • Du ska skriva SQL-frågor som visar, lägger till, uppdaterar och kan ta bort relevant data
